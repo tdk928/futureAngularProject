@@ -1,8 +1,8 @@
 Uis
 # futureAngularProject
 
-Idea
-Online clothes shop.
+<h3>Idea<h3>
+<p>Online clothes shop.</p>
 
 Design
 The application is split into four parts
