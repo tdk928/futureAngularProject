@@ -4,4 +4,8 @@ import java.util.List;
 
 public interface TagService {
     List<String> getAllGenres();
+
+    List<String> getAllTagsForProduct(String id);
+
+    List<String> getAllColorsForProduct(String id);
 }

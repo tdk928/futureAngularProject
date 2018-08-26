@@ -3,41 +3,33 @@ package softuni.shop.future.product.model.request;
 import softuni.shop.future.product.model.entity.Color;
 import softuni.shop.future.product.model.entity.Tag;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Set;
 
-public class CreateProductModel {
-    private static final int TITLE_LENGTH = 1;
+public class EditProductModel {
     private String id;
 
-    @NotBlank
-    @Size(min = TITLE_LENGTH)
-    private String title;
-
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9-_/\\\\.:]+\\.(jpg|png)$")
     private String imageUrl;
 
-//    @NotBlank
-    @Min(1)
     private double price;
+
+    private String title;
+
+    private LocalDate lastModified;
+
+    private long numberOrder;
 
     private Set<Tag> tags;
 
     private Set<Color> colors;
 
-    @NotBlank
-    @Size(max = 255)
-    private String description;
-
     private String purpose;
 
+    private String description;
 
+    private LocalDate dateAdded;
 
-    public CreateProductModel() {
+    public EditProductModel() {
     }
 
     public String getId() {
@@ -46,14 +38,6 @@ public class CreateProductModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getImageUrl() {
@@ -72,6 +56,30 @@ public class CreateProductModel {
         this.price = price;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDate getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public long getNumberOrder() {
+        return numberOrder;
+    }
+
+    public void setNumberOrder(long numberOrder) {
+        this.numberOrder = numberOrder;
+    }
+
     public Set<Tag> getTags() {
         return tags;
     }
@@ -88,6 +96,14 @@ public class CreateProductModel {
         this.colors = colors;
     }
 
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -96,11 +112,11 @@ public class CreateProductModel {
         this.description = description;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public LocalDate getDateAdded() {
+        return dateAdded;
     }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

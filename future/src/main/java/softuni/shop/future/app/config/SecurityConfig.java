@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] STATIC_URLS = new String[]{
             "/",
+            "/auth/*",
+            "/product/**",
             "/favicon.ico",
             "/**/*.png",
             "/**/*.gif",

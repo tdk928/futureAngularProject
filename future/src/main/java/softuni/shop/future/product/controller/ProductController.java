@@ -14,20 +14,27 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/genreProducts")
+    @PostMapping("/product/genreProducts")
     public ResponseEntity<?> addProduct(@RequestBody String genre) {
         return new ResponseEntity<>(this.productService.getProductsByGenre(genre), HttpStatus.OK);
     }
 
-    @GetMapping("/allProducts")
+    @GetMapping("/product/allProducts")
     public ResponseEntity<?> allProducts() {
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/product/details/{id}")
     public ResponseEntity<?> productDetails(@PathVariable("id") String id) {
         return new ResponseEntity<>(this.productService.getProductById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/product/lastThreeProduct")
+    public ResponseEntity<?> lastThreeProduct() {
+        return new ResponseEntity<>(this.productService.getLastThreeProducts(), HttpStatus.OK);
+    }
+
+
 
 
 }

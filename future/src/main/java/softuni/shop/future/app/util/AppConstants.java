@@ -52,7 +52,9 @@ public interface AppConstants {
 
     String POLL_CREATED_SUCCESSFULLY_MESSAGE = "Poll Created Successfully";
     String USER_REGISTERED_SUCCESSFULLY_MESSAGE = "%s registered successfully.";
+    String USER_SUCCESSFULLY_BUYING_PRODUCTS_MESSAGE = "You successfully buy products.";
     String SUCCESSFULLY_ADD_PRODUCT = "Successfully added product.";
+    String SUCCESSFULLY_EDITED_PRODUCT = "Successfully edited product.";
     String EMAIL_ADDRESS_ALREADY_IN_USE_MESSAGE = "Email Address already in use!";
     String PASSWORDS_MISMATCH_MESSAGE = "Passwords do not match!";
     String USERNAME_IS_ALREADY_TAKEN_MESSAGE = "Username is already taken!";

@@ -126,6 +126,10 @@ public class User {
         this.roles.add(role);
     }
 
+    public void buyProduct(Product product) {
+        this.products.add(product);
+    }
+
 
     public Boolean getBanned() {
         return isBanned;

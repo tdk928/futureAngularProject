@@ -5,7 +5,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import softuni.shop.future.product.model.entity.Color;
 import softuni.shop.future.product.model.entity.Tag;
+import softuni.shop.future.product.repository.ColorRepository;
 import softuni.shop.future.product.repository.TagRepository;
 import softuni.shop.future.user.model.entity.Role;
 import softuni.shop.future.user.model.entity.User;
@@ -13,8 +15,9 @@ import softuni.shop.future.user.model.enumeration.RoleName;
 import softuni.shop.future.user.repository.RoleRepository;
 import softuni.shop.future.user.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-
 
 
 @Component
@@ -31,19 +34,38 @@ public class DataLoader implements ApplicationRunner {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final TagRepository tagRepository;
+    private final ColorRepository colorRepository;
 
 
     @Autowired
-    public DataLoader(UserRepository userRepository, RoleRepository roleRepository, TagRepository tagRepository) {
+    public DataLoader(UserRepository userRepository, RoleRepository roleRepository, TagRepository tagRepository, ColorRepository colorRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.tagRepository = tagRepository;
+        this.colorRepository = colorRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) {
-        if(this.userRepository.count() == 0) this.seedUsers();
-        if(this.tagRepository.count() == 0 ) this.seedTags();
+        if (this.userRepository.count() == 0) this.seedUsers();
+        if (this.tagRepository.count() == 0) this.seedTags();
+        if(this.colorRepository.count() == 0) this.seedColors();
+    }
+
+    private void seedColors() {
+        Color blue = new Color("Blue");
+        Color green = new Color("Green");
+        Color red = new Color("Red");
+        Color black = new Color("Black");
+        Color white = new Color("White");
+        Color yellow = new Color("Yellow");
+
+        this.colorRepository.save(blue);
+        this.colorRepository.save(green);
+        this.colorRepository.save(red);
+        this.colorRepository.save(black);
+        this.colorRepository.save(white);
+        this.colorRepository.save(yellow);
     }
 
     private void seedUsers() {

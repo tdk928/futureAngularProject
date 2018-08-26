@@ -17,10 +17,15 @@ import softuni.shop.future.app.util.DTOConverter;
 import softuni.shop.future.auth.model.request.SignInRequestModel;
 import softuni.shop.future.auth.model.request.SignUpRequestModel;
 import softuni.shop.future.auth.service.api.AuthService;
+import softuni.shop.future.user.model.entity.Role;
 import softuni.shop.future.user.model.entity.User;
 import softuni.shop.future.user.model.enumeration.RoleName;
+import softuni.shop.future.user.model.request.CurrentUserDto;
 import softuni.shop.future.user.repository.UserRepository;
 import softuni.shop.future.user.service.api.RoleService;
+
+import java.security.Principal;
+import java.util.stream.Collectors;
 
 import static softuni.shop.future.app.util.AppConstants.*;
 
@@ -33,7 +38,6 @@ public class AuthServiceImpl extends BaseService implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     private final RoleService roleService;
-
 
 
     public AuthServiceImpl(JwtTokenProvider tokenProvider, AuthenticationManager authenticationManager,
@@ -56,9 +60,28 @@ public class AuthServiceImpl extends BaseService implements AuthService {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        String name = authentication.getName();
         String jwt = tokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JwtAuthenticationResponseModel(jwt, authentication.getName()));
+    }
+
+    @Override
+    public boolean checkForAdmin(Principal principal) {
+        if (principal == null) {
+            return false;
+        }
+        User user = this.userRepository.findFirstByUsername(principal.getName());
+//        for (Role role : user.getRoles()) {
+//            if(role.getName().toString().equals("ROLE_ADMIN")) {
+//                System.out.println();
+//            }
+//        }
+//        if(user.getRoles().stream().filter(r -> r.getName().toString().equals("ROLE_ADMIN")).collect(Collectors.toList()).size() == 1) {
+//            System.out.println();
+//        }
+
+        return user.getRoles().stream().filter(r -> r.getName().toString().equals("ROLE_ADMIN")).collect(Collectors.toList()).size() == 1;
+
     }
 
     @Override
@@ -74,6 +97,13 @@ public class AuthServiceImpl extends BaseService implements AuthService {
         return new ResponseEntity<>(new Gson().toJson(
                 String.format(USER_REGISTERED_SUCCESSFULLY_MESSAGE, signUpRequestModel.getUsername())
         ), HttpStatus.CREATED);
+    }
+
+    @Override
+    public CurrentUserDto getCurrentUser(Principal principal) {
+        User user = this.userRepository.findFirstByUsername(principal.getName());
+        CurrentUserDto currentUserDto = DTOConverter.convert(user, CurrentUserDto.class);
+        return currentUserDto;
     }
 
     private void persistNewUser(SignUpRequestModel signUpRequestModel) {

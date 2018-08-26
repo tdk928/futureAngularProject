@@ -5,6 +5,7 @@ import softuni.shop.future.user.model.entity.User;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,8 @@ public class Product {
 
     private String title;
 
+    private LocalDate lastModified;
+
 //    @ManyToMany
 //    private List<User> users;
 
@@ -44,7 +47,22 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "product_colors",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id"))
+    private Set<Color> colors;
+
+    private String purpose;
+
+    private String description;
+
+    private LocalDate dateAdded;
+
     public Product() {
+        this.setDateAdded(LocalDate.now());
+        this.setLastModified(LocalDate.now());
     }
 
     public String getId() {
@@ -102,5 +120,46 @@ public class Product {
 
     public void clearTags() {
         this.setTags(new HashSet<>());
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(Set<Color> colors) {
+        this.colors = colors;
+    }
+
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public LocalDate getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
     }
 }

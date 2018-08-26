@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,String> {
     Product findFirstById(String id);
+
+    @Query(value = "SELECT * FROM Products AS pr ORDER BY pr.date_added ASC LIMIT 3",nativeQuery = true)
+    List<Product> getLastThreeProducts();
 }
